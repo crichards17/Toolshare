@@ -25,7 +25,7 @@ Tool.init(
                 unique:false
             }
         }
-
+        
     },
     {
         sequelize,
