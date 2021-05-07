@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/crichards17/Toolshare/issues"
   },
-  "homepage": "https://github.com/crichards17/Toolshare#readme"
+  "homepage": "https://github.com/crichards17/Toolshare#readme",
+  "dependencies": {
+    "sequelize": "^6.6.2"
+  }
 }
