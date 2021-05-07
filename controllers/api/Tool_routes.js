@@ -1,88 +1,87 @@
 const router = require('express').Router();
-const { Product, Tag} = require('../../models');
+const { Tool, Tag} = require('../../models');
 
-// The `/api/products` endpoint
+// The `/api/Tools` endpoint
 
-// get all products
+// get all Tools
 router.get('/', (req, res) => {
-  // find all products
+  // find all Tools
   // be sure to include its associated Category and Tag data
 });
 
-// get one product
+// get one Tool
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
+  // find a single Tool by its `id`
   // be sure to include its associated Tag data
 });
 
-// create new product
+// create new Tool
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
+      Tool_name: "Axe",
+      price: 20.00,
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body)
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+  Tool.create(req.body)
+    .then((Tool) => {
+      // if there's Tool tags, we need to create pairings to bulk create in the ToolTag model
       if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
+        const ToolTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
-            product_id: product.id,
+            Tool_id: Tool.id,
             tag_id,
           };
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+        return ToolTag.bulkCreate(ToolTagIdArr);
       }
-      // if no product tags, just respond
-      res.status(200).json(product);
+      // if no Tool tags, just respond
+      res.status(200).json(Tool);
     })
-    .then((productTagIds) => res.status(200).json(productTagIds))
+    .then((ToolTagIds) => res.status(200).json(ToolTagIds))
     .catch((err) => {
       console.log(err);
       res.status(400).json(err);
     });
 });
 
-// update product
+// update Tool
 router.put('/:id', (req, res) => {
-  // update product data
-  Product.update(req.body, {
+  // update Tool data
+  Tool.update(req.body, {
     where: {
       id: req.params.id,
     },
   })
-    .then((product) => {
-      // find all associated tags from ProductTag
-      return ProductTag.findAll({ where: { product_id: req.params.id } });
+    .then((Tool) => {
+      // find all associated tags from ToolTag
+      return ToolTag.findAll({ where: { Tool_id: req.params.id } });
     })
-    .then((productTags) => {
+    .then((ToolTags) => {
       // get list of current tag_ids
-      const productTagIds = productTags.map(({ tag_id }) => tag_id);
+      const ToolTagIds = ToolTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
-      const newProductTags = req.body.tagIds
-        .filter((tag_id) => !productTagIds.includes(tag_id))
+      const newToolTags = req.body.tagIds
+        .filter((tag_id) => !ToolTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
-            product_id: req.params.id,
+            Tool_id: req.params.id,
             tag_id,
           };
         });
       // figure out which ones to remove
-      const productTagsToRemove = productTags
+      const ToolTagsToRemove = ToolTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
 
       // run both actions
       return Promise.all([
-        ProductTag.destroy({ where: { id: productTagsToRemove } }),
-        ProductTag.bulkCreate(newProductTags),
+        ToolTag.destroy({ where: { id: ToolTagsToRemove } }),
+        ToolTag.bulkCreate(newToolTags),
       ]);
     })
-    .then((updatedProductTags) => res.json(updatedProductTags))
+    .then((updatedToolTags) => res.json(updatedToolTags))
     .catch((err) => {
       // console.log(err);
       res.status(400).json(err);
@@ -90,7 +89,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  // delete one Tool by its `id` value
 });
 
 module.exports = router;
