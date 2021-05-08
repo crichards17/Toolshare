@@ -1,9 +1,9 @@
 const User = require('./User');
 const Tool = require('./Tool');
-// const ToolType= require('./ToolType');
+const ToolType= require('./ToolType');
 // const ToolTags= require('./ToolTags')
-// const ToolModel= require('./ToolModel')
-// const ToolMake = require('./ToolMake')
+const ToolModel= require('./ToolModel')
+const ToolMake = require('./ToolMake')
 
 User.hasMany(Tool,{
     foreignKey:'user_id',
@@ -37,4 +37,4 @@ Tool.belongsTo(User,{
 //     foreignKey:'tool_make_id'
 // })
 
-
+module.exports = {User, Tool}

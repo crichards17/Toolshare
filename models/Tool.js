@@ -32,36 +32,36 @@ Tool.init(
             references:{
                 model:'user',
                 key:'id',
-                unique:false
+                // unique:false
             }
         },
-        tool_model_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references:{
-                model:'toolModel',
-                key:'id',
-                unique:false
-            } 
-        },
-        tool_type_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references:{
-                model:'toolType',
-                key:'id',
-                unique:false
-            } 
-        },
-        tool_make_id:{
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references:{
-                model:'toolMake',
-                key:'id',
-                unique:false
-            } 
-        }
+        // tool_model_id:{
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references:{
+        //         model:'toolModel',
+        //         key:'id',
+        //         unique:false
+        //     } 
+        // },
+        // tool_type_id:{
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references:{
+        //         model:'toolType',
+        //         key:'id',
+        //         unique:false
+        //     } 
+        // },
+        // tool_make_id:{
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     references:{
+        //         model:'toolMake',
+        //         key:'id',
+        //         unique:false
+        //     } 
+        // }
     },
     {
         sequelize,
@@ -72,4 +72,4 @@ Tool.init(
       }
 )
 
-module.exports=Tool
+module.exports= Tool

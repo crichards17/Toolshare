@@ -1,12 +1,23 @@
 const router = require('express').Router();
-const { Tool, Tag} = require('../../models');
+// const { Tool, Tag} = require('../../models');
+const User = require('../../models/User');
+const Tool =require('../../models/Tool')
 
 // The `/api/Tools` endpoint
 
 // get all Tools
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all Tools
   // be sure to include its associated Category and Tag data
+    try{
+      const getTools= await Tool.findAll({
+        include:[{model: User}]
+      }) 
+      res.status(200).json(getTools)
+    }
+    catch(err){
+      res.status(500).json(err)
+    }
 });
 
 // get one Tool
