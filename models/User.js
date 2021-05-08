@@ -15,7 +15,14 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        
+        user_email:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        user_address:{
+            type:DataTypes.STRING,
+            allowNull: false
+        }
     },
     {
         sequelize,
