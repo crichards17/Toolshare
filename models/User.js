@@ -15,7 +15,18 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        
+        user_email:{
+            type:DataTypes.STRING,
+            allowNull:false,
+            unique:true,
+            validate:{
+                isEmail:true
+            }
+        },
+        user_address:{
+            type:DataTypes.STRING,
+            allowNull: false
+        }
     },
     {
         sequelize,

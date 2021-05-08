@@ -8,7 +8,7 @@ User.hasMany(Tool,{
     onDelete:'Cascade'
 });
 
-Tool.belongsTo(Category,{
+Tool.belongsTo(User,{
     foreignKey:'user_id'
 });
 
