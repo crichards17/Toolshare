@@ -26,6 +26,9 @@ User.init(
         user_address:{
             type:DataTypes.STRING,
             allowNull: false
+        },
+        user_password:{
+            type: DataTypes.STRING
         }
     },
     {
