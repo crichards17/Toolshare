@@ -17,7 +17,11 @@ User.init(
         },
         user_email:{
             type:DataTypes.STRING,
-            allowNull:false
+            allowNull:false,
+            unique:true,
+            validate:{
+                isEmail:true
+            }
         },
         user_address:{
             type:DataTypes.STRING,
