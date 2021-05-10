@@ -35,15 +35,14 @@ Tool.init(
                 // unique:false
             }
         },
-        // tool_model_id:{
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     references:{
-        //         model:'toolModel',
-        //         key:'id',
-        //         unique:false
-        //     } 
-        // },
+        tool_model_id:{
+            type: DataTypes.INTEGER,
+                references:{
+                model:'toolModel',
+                key:'id',
+                
+            } 
+        },
         // tool_type_id:{
         //     type: DataTypes.INTEGER,
         //     allowNull: false,
