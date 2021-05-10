@@ -35,6 +35,7 @@ Tool.init(
                 // unique:false
             }
         },
+        
         tool_model_id:{
             type: DataTypes.INTEGER,
                 references:{
@@ -43,24 +44,24 @@ Tool.init(
                 
             } 
         },
-        // tool_type_id:{
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     references:{
-        //         model:'toolType',
-        //         key:'id',
-        //         unique:false
-        //     } 
-        // },
-        // tool_make_id:{
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     references:{
-        //         model:'toolMake',
-        //         key:'id',
-        //         unique:false
-        //     } 
-        // }
+        tool_type_id:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references:{
+                model:'toolType',
+                key:'id',
+                
+            } 
+        },
+        tool_make_id:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references:{
+                model:'toolMake',
+                key:'id',
+                unique:false
+            } 
+        }
     },
     {
         sequelize,
