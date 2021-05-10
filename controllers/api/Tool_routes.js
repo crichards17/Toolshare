@@ -8,7 +8,7 @@ const Tool =require('../../models/Tool')
 // get all Tools
 router.get('/', async (req, res) => {
   // find all Tools
-  // be sure to include its associated Category and Tag data
+  // be sure to include its associated Category and ToolTag data
     try{
       const getTools= await Tool.findAll({
         include:[{model: User}]
