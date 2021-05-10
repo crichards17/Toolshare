@@ -22,9 +22,25 @@ router.get('/', async (req, res) => {
 });
 
 // get one Tool
-router.get('/:id', (req, res) => {
-  // find a single Tool by its `id`
+// find a single Tool by its `id`
   // be sure to include its associated Tag data
+router.get('/:id', (req, res) => {
+  try {
+    const toolData = await Category.findOne({
+      where:{
+        id: req.params.id,
+      },
+      include:[ToolTags, ToolModel,Tooltype,ToolMake]
+    })
+    if (!toolData) {
+      res.status(404).json({ message: 'No Tool found with this id!' });
+      return;
+    }
+
+    res.status(200).json(toolData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // create new Tool
@@ -68,7 +84,7 @@ router.put('/:id', (req, res) => {
   })
     .then((Tool) => {
       // find all associated tags from ToolTag
-      return ToolTag.findAll({ where: { Tool_id: req.params.id } });
+      return ToolTag.findAll({ where: { tool_id: req.params.id } });
     })
     .then((ToolTags) => {
       // get list of current tag_ids
