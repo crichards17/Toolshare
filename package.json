@@ -18,13 +18,14 @@
     "url": "https://github.com/crichards17/Toolshare/issues"
   },
   "homepage": "https://github.com/crichards17/Toolshare#readme",
-  "dependencies": {},
+  "dependencies": {
+    "sequelize": "^6.6.2"
+  },
   "devDependencies": {
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.14",
     "tailwindcss": "^2.1.2"
-=======
-  "dependencies": {
-    "sequelize": "^6.6.2"
   }
+
+  
 }
