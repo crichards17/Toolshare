@@ -39,7 +39,7 @@ Tool.init(
         tool_categories_id:{
             type: DataTypes.INTEGER,
                 references:{
-                model:'toolModel',
+                model:'toolCategories',
                 key:'id',
                 
             } 
