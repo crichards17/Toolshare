@@ -13,28 +13,24 @@ User.hasMany(Tool,{
 Tool.belongsTo(User,{
     foreignKey:'user_id'
 });
-// ToolType.hasMany(Tool,{
-//     foreignKey:' tool_type_id'
-// })
+ToolType.hasMany(Tool,{
+    foreignKey:'tool_type_id'
+})
+Tool.belongsTo(ToolType,{
+    foreignKey:'tool_type_id'
+})
 
-// ToolModel.hasMany(Tool,{
-//     foreignKey:'tool_model_id'
-// })
+ToolModel.hasMany(Tool,{
+    foreignKey:'tool_model_id'
+})
+Tool.belongsTo(ToolModel,{
+    foreignKey:'tool_model_id'
+});
+ToolMake.hasMany(Tool,{
+    foreignKey:'tool_make_id'
+})
+Tool.belongsTo(ToolMake,{
+    foreignKey:'tool_make_id'
+})
 
-// ToolMake.hasMany(Tool,{
-//     foreignKey:'tool_make_id'
-// })
-
-// Tool.belongsTo(ToolModel,{
-//     foreignKey:'tool_model_id'
-// });
-
-// Tool.belongsTo(ToolType,{
-//     foreignKey:' tool_type_id'
-// })
-
-// Tool.belongsTo(ToolMake,{
-//     foreignKey:'tool_make_id'
-// })
-
-module.exports = {User, Tool}
+module.exports = {User, Tool, ToolModel, ToolType, ToolMake}
