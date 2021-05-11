@@ -4,6 +4,12 @@ const toolMakeData= [
     {
         make_name:"Pimp Tools"
         
+    },
+    {
+        make_name:"Cool Tools"
+    },
+    {
+        make_name:"Super Tools"
     }
 ]
 
