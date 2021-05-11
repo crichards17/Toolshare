@@ -2,7 +2,7 @@ const User = require('./User');
 const Tool = require('./Tool');
 const ToolType= require('./ToolType');
 // const ToolTags= require('./ToolTags')
-const ToolModel= require('./ToolModel')
+const ToolCategories= require('./ToolCategories')
 const ToolMake = require('./ToolMake')
 
 User.hasMany(Tool,{
@@ -20,11 +20,11 @@ Tool.belongsTo(ToolType,{
     foreignKey:'tool_type_id'
 })
 
-ToolModel.hasMany(Tool,{
-    foreignKey:'tool_model_id'
+ToolCategories.hasMany(Tool,{
+    foreignKey:'tool_categories_id'
 })
-Tool.belongsTo(ToolModel,{
-    foreignKey:'tool_model_id'
+Tool.belongsTo(ToolCategories,{
+    foreignKey:'tool_categories_id'
 });
 ToolMake.hasMany(Tool,{
     foreignKey:'tool_make_id'
@@ -33,4 +33,4 @@ Tool.belongsTo(ToolMake,{
     foreignKey:'tool_make_id'
 })
 
-module.exports = {User, Tool, ToolModel, ToolType, ToolMake}
+module.exports = {User, Tool, ToolCategories, ToolType, ToolMake}

@@ -1,7 +1,7 @@
 const { Model, DataTypes} = require('sequelize')
 const sequelize = require('../config/connection')
 const User = require('./User')
-const ToolModel= require('./ToolModel')
+const ToolCategories= require('./ToolCategories')
 const ToolMake= require('./ToolMake')
 const ToolType= require('./ToolType')
 
@@ -36,7 +36,7 @@ Tool.init(
             }
         },
         
-        tool_model_id:{
+        tool_categories_id:{
             type: DataTypes.INTEGER,
                 references:{
                 model:'toolModel',
