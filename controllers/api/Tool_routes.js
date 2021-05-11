@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Tool,  User, ToolModel, ToolType, ToolMake } = require('../../models');
+const { Tool,  User, ToolCategories, ToolType, ToolMake } = require('../../models');
 
 
 // The `/api/Tools` endpoint
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
     try{
       const getTools= await Tool.findAll({
-        include:[{ model: User }, {model: ToolModel}, {model:ToolType}, {model:ToolMake}]
+        include:[{ model: User }, {model: ToolCategories}, {model:ToolType}, {model:ToolMake}]
       }) 
       res.status(200).json(getTools)
     }
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 // get one Tool
 // find a single Tool by its `id`
   // be sure to include its associated Tag data
-router.get('/:id', (req, res) => {
+router.get('/:id', async(req, res) => {
   try {
     const toolData = await Category.findOne({
       where:{

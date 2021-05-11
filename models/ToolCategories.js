@@ -1,9 +1,9 @@
 const { Model, DataTypes} = require('sequelize')
 const sequelize = require('../config/connection')
 
-class ToolModel extends Model{}
+class ToolCategories extends Model{}
 
-ToolModel.init(
+ToolCategories.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,7 +11,7 @@ ToolModel.init(
             primaryKey: true,
             autoIncrement: true,
           },
-        model_name:{
+        categories_name:{
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -21,8 +21,8 @@ ToolModel.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'toolModel',
+        modelName: 'toolCategories',
       }
 )
 
-module.exports= ToolModel
+module.exports= ToolCategories
