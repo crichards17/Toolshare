@@ -7,18 +7,18 @@ const { Tool,  User, ToolCategories, ToolType, ToolMake } = require('../../model
 // get all Tools
 router.get('/', async (req, res) => {
   // find all Tools
-
-
-  //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
-    try{
-      const getTools= await Tool.findAll({
-        include:[{ model: User }, {model: ToolCategories}, {model:ToolType}, {model:ToolMake}]
-      }) 
-      res.status(200).json(getTools)
-    }
-    catch(err){
-      res.status(500).json(err)
-    }
+//NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
+try {
+  const ToolsData = await Tool.findAll({
+    include: [ToolCategories, {
+      model: ToolType,
+      through: ToolMake
+    }]
+  })
+  res.status(200).json(ToolsData);
+} catch (err) {
+  res.status(500).json(err);
+}
 });
 
 // get one Tool
