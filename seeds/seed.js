@@ -8,12 +8,18 @@ const toolTypeData= require('./toolType-seed')
 const toolMakeData= require('./toolMake-seed')
 
 const seedDatabase = async ()=>{
-    await sequelize.sync({force: true});
-    await userData();
-    await toolCategoriesData();
-    await toolTypeData();
-    await toolMakeData();
-    await toolData();
+    try{
+
+        await sequelize.sync({force: true});
+        await userData();
+        await toolCategoriesData();
+        await toolTypeData();
+        await toolMakeData();
+        await toolData();
+    }
+    catch(err){
+        console.log(err)
+    }
 }
 
 seedDatabase()
