@@ -26,11 +26,11 @@ try {
   // be sure to include its associated Tag data
 router.get('/:id', async(req, res) => {
   try {
-    const toolData = await Category.findOne({
+    const toolData = await Tool.findOne({
       where:{
         id: req.params.id,
       },
-      include:[ToolTags, ToolModel,Tooltype,ToolMake]
+      include:[ToolCategories, ToolType, ToolMake]
     })
     if (!toolData) {
       res.status(404).json({ message: 'No Tool found with this id!' });
@@ -45,7 +45,7 @@ router.get('/:id', async(req, res) => {
 
 // create new Tool
 router.post('/', (req, res) => {
-  /* req.body should look like this...
+//  req.body should look like this...
     {
       Tool_name: "Axe",
       price: 20.00,
