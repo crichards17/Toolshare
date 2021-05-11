@@ -10,10 +10,7 @@ router.get('/', async (req, res) => {
 //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
 try {
   const ToolsData = await Tool.findAll({
-    include: [ToolCategories, {
-      model: ToolType,
-      through: ToolMake
-    }]
+    include:[ToolCategories, ToolType, ToolMake]
   })
   res.status(200).json(ToolsData);
 } catch (err) {
@@ -45,13 +42,21 @@ router.get('/:id', async(req, res) => {
 
 // create new Tool
 router.post('/', (req, res) => {
-//  req.body should look like this...
-    {
-      Tool_name: "Axe",
-      price: 20.00,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
+  Tool.create(req.body
+    // {
+    //   tool_name: "jigsaw",
+    //   tool_description: "used",
+    //   asking: 3,
+    //   user_id: 8,
+    //   tool_categories_id: 1,
+    //   tool_type_id: 2,
+    //   tool_make_id: 3
+    // }
+
+  ).then(() => {
+    res.send('Created Success!');
+  });
+
   Tool.create(req.body)
     .then((Tool) => {
       // if there's Tool tags, we need to create pairings to bulk create in the ToolTag model
