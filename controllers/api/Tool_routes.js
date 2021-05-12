@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const { Tool,  User, ToolCategories, ToolType, ToolMake } = require('../../models');
+const withAuth = require('../../utils/auth')
 
 
 // The `/api/Tools` endpoint
 
 // get all Tools
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   // find all Tools
 
 
@@ -14,11 +15,24 @@ router.get('/', async (req, res) => {
       const getTools= await Tool.findAll({
         include:[{ model: User }, {model: ToolCategories}, {model:ToolType}, {model:ToolMake}]
       }) 
-      res.status(200).json(getTools)
+     
+      // res.status(200).json(getTools)
+      const toolStringed= JSON.stringify(getTools)
+      res.render(toolStringed, {
+        logged_in:req.session.logged_in
+      })
     }
     catch(err){
       res.status(500).json(err)
     }
+});
+router.get('/UsersLogin', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('Userlogin');
 });
 
 // get one Tool
