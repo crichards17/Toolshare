@@ -8,12 +8,23 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
-    
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+    </style>
 
     <title>Tool Trader</title>
 </head>
-<body id='body' class='bg-gray-600'>
-    <nav id='nav' class="bg-gray-800">
+<body class='bg-gray-600'>
+    <nav class="bg-gray-800">
         <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
           <div class="relative flex items-center justify-between h-16">
             <div class="flex items-center px-2 lg:px-0">
@@ -27,7 +38,7 @@
                   <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
                   <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tools</a>
                   <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</a>
-                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log in</a>
+                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
                 </div>
               </div>
             </div>
@@ -121,63 +132,96 @@
             <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
             <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tools</a>
             <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</a>
-            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+            
           </div>
           
         </div>
       </nav>
 
+      <div class='flex-1 md:flex relative z-0 overflow-y-auto focus:outline-none'>
+      <div class='text-3xl relative  text-gray-200 xs:full md:80 flex flex-col p-2 md:flex-0'>
+          <h1 class='text-3xl m-4 p-2 text-gray-200 rounded-full'>Selected Tool</h1>
+      
 
-      <div id='owl' class="owl-carousel owl-theme">
-        <div class="item h-60"><img src="../public/images/Electric-Hand-Tools.jpg" alt="The Last of us"></div>
-        <div class="item h-60"><img src="../public/images/handyman.jpg" alt="GTA V"></div>
-        <div class="item h-60"><img src="../public/images/istockphoto-1191423486-612x612.jpg" alt="Mirror Edge"></div>
-        <div class="item h-60"><img src="../public/images/DIY-Coffee-Table-Work.jpg" alt="Mirror Edge"></div>
-       
+      
+
+      <div class="max-w-xs bg-gray-200 m-4 rounded-lg shadow-lg">
+        <img class="object-cover  w-full" src="../public/images/logo-gray.png" alt="tool trader logo"/>
+        <div class="flex-1 flex flex-col p-2 mx-auto">
+            <dd class="text-gray-600 text-sm m-2" id="">User</dd>
+            <dd class="text-gray-600 text-sm m-2" id="">Description</dd>
+            <dd class="text-gray-600 text-sm m-2" id="">Make</dd>
+            <dd class="text-gray-600 text-sm m-2" id="">Model</dd>
+            <dd class="text-gray-600 text-sm m-2" id="">Asking</dd>
+            <dd class="text-gray-600 text-sm m-2" id="">Distance</dd>
+        </div>
+        
+    </div>
+    </div>
+
+    <div class='flex-col mx-auto'>
+      <div class='flex'>
+      <h1 class='flex text-3xl m-4 p-2 w-full text-gray-200 rounded-full'>Message Board</h1>
+      </div>
+      <div class="p-2 rounded">
+        <!--Card 1-->
+        <div class=" w-full lg:max-w-full lg:flex">
+          <!-- <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('/mountain.jpg')" title="Mountain">
+          <img class='bg-white' src='../public/images/logo-gray.png'>
+          </div> -->
+          <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+            <div class="mb-8">
+              
+              <p class="text-sm text-gray-600 flex items-center">
+                
+                <i class="fas m-2 fa-user text-gray-400"></i>
+                User
+              </p>
+              <div class="text-gray-900 font-bold text-xl mb-2">Message</div>
+              <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+            </div>
+            <div class="flex items-center">
+              <div class="text-sm">
+                <p class="text-gray-900 leading-none">Time</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class='mx-auto text-center text-gray-200 p-2 mt-8'>
-          <h1 class='text-6xl'>Why Tool Trader?</h1>
-          <p class='text-xl p-2'>Tool Trader is an interactive community that allows you to borrow, rent, or trade tools at the click of a button. No more buying tools to use them once, no more costly rental fees, and no more dealing with people trying to sell you things you don't need! Unlike that neighbor that never returned your saw... we're here for you and so is our community! </p>
 
-
-      </div>
-
-      <div class='mx-auto text-center text-gray-200 p-2 mt-8'>
-        <h1 class='text-6xl'>Get Started Now!</h1>
-        <p class='text-xl p-2'>Get started <a href='https://espn.go.com'>here </a>now! What are we getting done today?</p>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
-    <script>
-      var owl = $('.owl-carousel');
-      owl.owlCarousel({
-        items:4,
-        loop:true,
-        margin:10,
-        autoplay:true,
-        autoplayTimeout:2000,
-        autoplayHoverPause:true
-      });
-      $('.play').on('click',function(){
-        owl.trigger('play.owl.autoplay',[1000])
-      })
-      $('.stop').on('click',function(){
-        owl.trigger('stop.owl.autoplay')
-      })
-      </script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-      <script src='../public/js/animations.js'></script>
-      <script src='../public/js/script.js'></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/CSSRulePlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/Draggable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/EaselPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/MotionPathPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/PixiPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/TextPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollToPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/EasePack.min.js"></script>    </body> -->
+    </div>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+      
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+      
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          if (input.value) {
+            socket.emit('chat message', input.value);
+            input.value = '';
+          }
+        });
+      
+        socket.on('chat message', function(msg) {
+          var item = document.createElement('li');
+          item.textContent = msg;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      </script>
+<script src='../public/js/script.js'></script>
+</body>
 </html>
