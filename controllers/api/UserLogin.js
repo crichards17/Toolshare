@@ -1,12 +1,19 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const User = require('../../models/User');
+// const User = require('../../models/User');
+const {User} = require ('../../models')
 
 // Added comments describing the functionality of this `login` route
 router.post('/login', async (req, res) => {
+  // console.log(req.body.email)
   try {
     // we search the DB for a user with the provided email
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    
+    console.log('TESTINGLOGIN')
+    const userData = await User.findOne({ where: 
+      {email: req.body.email} });
+    
+   
     if (!userData) {
       // the error message shouldn't specify if the login failed because of wrong email or password
       res.status(404).json({ message: 'Login failed. Please try again!' });
@@ -18,11 +25,12 @@ router.post('/login', async (req, res) => {
       userData.password
     );
     // if they do not match, return error message
-    if (req.body.password) {
+    if (req.body.password != userData.password) {
       res.status(400).json({ message: 'Login failed. Please try again!' });
       return;
     }
     // if they do match, return success message
+    console.log('TESTINGLOGIN2')
     req.session.save(()=>{
       req.session.user_id = userData.id;
       req.session.logged_in = true;
