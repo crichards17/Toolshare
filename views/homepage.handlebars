@@ -1,0 +1,38 @@
+<div class="owl-carousel owl-theme">
+    <div class="item h-60"><img src="/images/Electric-Hand-Tools.jpg" alt="The Last of us"></div>
+    <div class="item h-60"><img src="/images/handyman.jpg" alt="GTA V"></div>
+    <div class="item h-60"><img src="/images/istockphoto-1191423486-612x612.jpg" alt="Mirror Edge"></div>
+    <div class="item h-60"><img src="/images/DIY-Coffee-Table-Work.jpg" alt="Mirror Edge"></div>
+       
+</div>
+
+    <div class='mx-auto text-center text-gray-200 p-2 mt-8'>
+        <h1 class='text-6xl'>Why Tool Trader?</h1>
+        <p class='text-xl p-2'>Tool Trader is an interactive community that allows you to borrow, rent, or trade tools at the click of a button. No more buying tools to use them once, no more costly rental fees, and no more dealing with people trying to sell you things you don't need! Unlike that neighbor that never returned your saw... we're here for you and so is our community! </p>
+    </div>
+
+    <div class='mx-auto text-center text-gray-200 p-2 mt-8'>
+        <h1 class='text-6xl'>Get Started Now!</h1>
+        <p class='text-xl p-2'>Get started <a href='https://espn.go.com'>here </a>now! What are we getting done today?</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src='/js/script.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script>
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+        items:4,
+        loop:true,
+        margin:10,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true
+        });
+        $('.play').on('click',function(){
+        owl.trigger('play.owl.autoplay',[1000])
+        })
+        $('.stop').on('click',function(){
+        owl.trigger('stop.owl.autoplay')
+        })
+    </script>
