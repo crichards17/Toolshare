@@ -67,6 +67,22 @@ router.get('/Tool/:id', async (req, res) => {
     }
   });
   
+  router.get('/Tools', async (req, res) => {
+    // find all Tools
+  //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
+  try {
+    const ToolsData = await Tool.findAll({
+      include:[ToolCategories, ToolType, ToolMake]
+    })
+    res.status(200).json(ToolsData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  });
+
+  
+
+  
 
   module.exports = router;
   
