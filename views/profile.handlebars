@@ -12,17 +12,28 @@
         <div class="">
           <div class='card m-4  border-gray-200 rounded-lg h-auto w-auto'>
               <h1 class='text-3xl text-gray-200 p-2 bg-gray-400 rounded-full'>Post a Tool</h1>
-              <input type='text' class='w-60 m-2 p-1 rounded text-gray-700' placeholder='description'/>
-              <input type='text' class='w-auto m-2 p-1 rounded text-gray-700' placeholder='make'/>
-              <input type='text' class='w-auto m-2 p-1 rounded text-gray-700' placeholder='model'/>
-              <input type='text' class='w-60 m-2 p-1 rounded text-gray-700' placeholder='asking'/>
-              <select class='form-select p-1 m-2 rounded' placeholder='type'>
-                <option>Lawn and Garden</option>
-                <option>Saws</option>
-                <option>Construction</option>
-                <option>Hand tools</option>
+              <input type='text' id='new_name' class='w-auto m-2 p-1 rounded text-gray-700' placeholder='Tool Name'/>
+              <input type='text' id='new_description' class='w-auto m-2 p-1 rounded text-gray-700' placeholder='Description'/>
+              <select class='form-select p-1 m-2 rounded' placeholder='Make' id='new_make'>
+                <option value='default_label' selected>Select Make</option>
+                {{#each makes as |make|}}
+                <option value='{{make.id}}'>{{make.make_name}}</option>
+                {{/each}}
               </select>
-              <button type='submit' class='bg-gray-400 text-gray-200 rounded p-1 m-2 hover:bg-gray-200 hover:text-gray-400'>Submit</button>
+              <select class='form-select p-1 m-2 rounded' placeholder='Type' id='new_type'>
+                <option value='default_label' selected>Select Type</option>
+                {{#each types as |type|}}
+                <option value='{{type.id}}'>{{type.tool_types_name}}</option>
+                {{/each}}
+              </select>
+              <select class='form-select p-1 m-2 rounded' placeholder='Category' id='new_category'>
+                <option value='default_label' selected>Select Category</option>
+                {{#each categories as |category|}}
+                <option value='{{category.id}}'>{{category.categories_name}}</option>
+                {{/each}}
+              </select>
+              <input type='text' id='new_asking' class='w-auto m-2 p-1 rounded text-gray-700' placeholder='Asking'/>
+              <button type='submit' id='submit_btn' class='bg-gray-400 text-gray-200 rounded p-1 m-2 hover:bg-gray-200 hover:text-gray-400'>Submit</button>
               <!-- <input type='text' class='rounded text-gray-700' placeholder='description'/> -->
               
               <ul class='text-gray-200'>
@@ -49,10 +60,7 @@
                       <dd class="text-gray-600 text-sm m-2" id="">Make: {{tool.toolMake.make_name}}</dd>
                       <dd class="text-gray-600 text-sm m-2" id="">Type: {{tool.toolType.tool_types_name}}</dd>
                       <dd class="text-gray-600 text-sm m-2" id="">Category: {{tool.toolCategory.categories_name}}</dd>
-                      <dd class="text-gray-600 text-sm m-2" id="user">User: {{tool.user.user_name}}</dd>
                       <dd class="text-gray-600 text-sm m-2" id="">Asking: </dd>
-                      <dd class="text-gray-600 text-sm m-2" id="">Distance: </dd>
-                      <dd class="text-gray-600 text-sm m-2" id="user">Contact email: {{tool.user.email}}</dd>
                   </div>
                   <div class="-mt-px flex divide-x border-t divide-gray-200">
                       <div class="w-0 flex-1 flex">
@@ -72,4 +80,5 @@
       </div>
     </div>
   </main>
+  <script src="/js/newTool.js"></script>
 </body>
