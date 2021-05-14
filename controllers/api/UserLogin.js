@@ -16,9 +16,6 @@ router.post('/login', async (req, res) => {
    
     if (!userData) {
       // the error message shouldn't specify if the login failed because of wrong email or password
-      // 
-      console.log("user email did not match");
-      // 
       res.status(404).json({ message: 'Login failed. Please try again!' });
       return;
     }
@@ -29,9 +26,6 @@ router.post('/login', async (req, res) => {
     );
     // if they do not match, return error message
     if (!validPassword) {
-      // 
-      console.log(`passed password ${req.body.password} did not match saved password ${userData.password}`);
-      // 
       res.status(400).json({ message: 'Login failed. Please try again!' });
       return;
     }
