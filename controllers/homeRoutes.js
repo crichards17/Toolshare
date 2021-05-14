@@ -33,24 +33,6 @@ router.get('/Tool/:id', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  // Find the logged in user based on the session ID
-  router.get('/profile', withAuth, async (req, res) => {
-    try {
-      const userData = await User.findByPk(req.session.user_id, {
-        attributes: { exclude: ['password'] },
-        include: [{ model: Tool }],
-      });
-  
-      const user = userData.get({ plain: true });
-  
-      res.render('profile', {
-        ...user,
-        logged_in: true
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
 
   router.get('/tools', async (req, res) => {
     try {
@@ -59,7 +41,9 @@ router.get('/Tool/:id', async (req, res) => {
         include: [
           {
             model: User,
-            exclude: ['password'],
+            attributes: {
+              exclude: ['password'],
+            }
           },
           {
             model: ToolType
@@ -75,9 +59,9 @@ router.get('/Tool/:id', async (req, res) => {
   
       // Serialize data so the template can read it
       const tools = toolsData.map((tool) => tool.get({ plain: true }));
-      // 
-      console.log(tools);
-      // 
+      // // 
+      // console.log(tools);
+      // // 
       // Pass serialized data and session flag into template
       res.render('tools', { 
         tools, 
@@ -89,6 +73,69 @@ router.get('/Tool/:id', async (req, res) => {
     }
   });
 
+  router.get('/profile', withAuth, async (req, res) => {
+    // 
+    console.log(`user ID: ${req.session.user_id}`);
+    // 
+    try {
+      // Find the logged-in user's tools based on the session ID
+      const toolsData = await Tool.findAll({
+        include: [
+          {
+            model: User,
+            where: {
+              id: req.session.user_id
+            },
+            attributes: {
+              exclude: ['password'],
+            }
+          },
+          {
+            model: ToolType
+          },
+          {
+            model: ToolMake
+          },
+          {
+            model: ToolCategories
+          }
+        ],
+      });
+  
+      // Serialize data so the template can read it
+      const myTools = toolsData.map((tool) => tool.get({ plain: true }));
+      // // 
+      // console.log(myTools);
+      // // 
+  
+      res.render('profile', {
+        myTools,
+        logged_in: true
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
+  router.get('/login', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    if (req.session.logged_in) {
+      res.redirect('/profile');
+      return;
+    }
+  
+    res.render('login');
+  });
+
+  router.get('/create', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    if (req.session.logged_in) {
+      res.redirect('/profile');
+      return;
+    }
+  
+    res.render('create');
+  });
   
 
   module.exports = router;
