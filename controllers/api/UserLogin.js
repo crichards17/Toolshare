@@ -4,6 +4,29 @@ const bcrypt = require('bcrypt');
 const {User} = require ('../../models')
 
 // Added comments describing the functionality of this `login` route
+
+router.get('/sessData', async(req,res)=>{
+  let data= ''
+    if(req.session.logged_in===true){
+      
+      data=true
+    }
+    if (!req.session.logged_in){
+    
+     data=false
+    }
+    
+   if (data===true){
+     res.status(200).json()
+   }
+   if(data===false){
+     res.status(201).json()
+   }
+})
+
+
+
+
 router.post('/login', async (req, res) => {
  
   try {

@@ -42,26 +42,15 @@ $(document).ready(function() {
    
     });
    
+    const checkSess=async()=>{
+      const sessDetails= await fetch('//api/UsersLogin/sessData')
+      if(sessDetails===true){
+        console.log("Yea")
+      }
+      if (sessDetails===false){
+        console.log('no')
+      }
+    }
+  checkSess()
   }); 
-  // $(window).unload(async function () { 
-  //   // $.get('/session/destroy');
-  //   const response = await fetch('/api/UsersLogin/logout', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //   });
-  // });
 
-  const logout = async () => {
-    console.log('out')
-    const response = await fetch('/api/UsersLogin/logout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
-  
-    if (response.ok) {
-      document.location.replace('/api/UsersLogin/login');
-    } else {
-      alert(response.statusText);
-    }};
-    const test=()=>console.log('tetrerer')
-    $(window).onload(test())
