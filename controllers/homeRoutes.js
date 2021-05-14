@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Tool, User } = require('../models');
+const { Tool, User, ToolType } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -66,21 +66,31 @@ router.get('/Tool/:id', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  
-  router.get('/Tools', async (req, res) => {
-    // find all Tools
-  //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
-  try {
-    const ToolsData = await Tool.findAll({
-      include:[ToolCategories, ToolType, ToolMake]
-    })
-    res.status(200).json(ToolsData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-  });
 
+  router.get('/tools', async (req, res) => {
+    try {
+      // Get all tools and JOIN with user data
+      const toolsData = await Tool.findAll({
+        include: [
+          {
+            model: User,
+            exclude: ['password'],
+          },
+        ],
+      });
   
+      // Serialize data so the template can read it
+      const tools = toolsData.map((tool) => tool.get({ plain: true }));
+  
+      // Pass serialized data and session flag into template
+      res.render('tools', { 
+        tools, 
+        logged_in: req.session.logged_in 
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
   
 
