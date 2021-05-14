@@ -41,9 +41,23 @@ router.post('/login', async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get('/logout', (req,res)=>{
+  console.log('TEEEEEEEEEEEEEEEEEEST')
+if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.render('homepage')
+    });
+  } else {
+    // res.status(404).end();
+    res.render('homepage')
+  }
+})
+
+
 // GET one user
 router.get('/:id', async (req, res) => {
   try {
+  
     const userData = await User.findByPk(req.params.id);
     if (!userData) {
       res.status(404).json({ message: 'No user with this id!' });
@@ -71,7 +85,6 @@ router.post('/create', async (req, res) => {
   }
 });
 
-
 // PUT update a user
 router.put('/:id', async (req, res) => {
   try {
@@ -91,16 +104,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.post('/logout', (req, res) => {
-  console.log('logout')
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+
+
 
 
 module.exports = router;
