@@ -101,15 +101,26 @@ router.get('/Tool/:id', async (req, res) => {
           }
         ],
       });
-  
       // Serialize data so the template can read it
       const myTools = toolsData.map((tool) => tool.get({ plain: true }));
-      // // 
-      // console.log(myTools);
-      // // 
   
+      // Get all categories for categories dropdown
+      const categoriesData = await ToolCategories.findAll();
+      const categories = categoriesData.map((categorie) => categorie.get({ plain: true }));
+
+      // Get all makes for makes dropdown
+      const makesData = await ToolMake.findAll();
+      const makes = makesData.map((make) => make.get({ plain: true }));
+
+      // Get all ToolTypes for categories dropdown
+      const typeData = await ToolType.findAll();
+      const types = typeData.map((type) => type.get({ plain: true }));
+
       res.render('profile', {
         myTools,
+        categories,
+        makes,
+        types,
         logged_in: true
       });
     } catch (err) {
