@@ -1,25 +1,10 @@
 const router = require('express').Router();
-const { Tool, User } = require('../models');
+const { Tool, User, ToolType, ToolMake, ToolCategories } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all Tools and JOIN with user data
-    const ToolData = await Tool.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['user_name'],
-        },
-      ],
-    });
-
-    // Serialize data so the template can read it
-    const Tools = ToolData.map((Tool) => Tool.get({ plain: true }));
-
-    // Pass serialized data and session flag into template
     res.render('homepage', { 
-      Tools, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -66,21 +51,43 @@ router.get('/Tool/:id', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  
-  router.get('/Tools', async (req, res) => {
-    // find all Tools
-  //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
-  try {
-    const ToolsData = await Tool.findAll({
-      include:[ToolCategories, ToolType, ToolMake]
-    })
-    res.status(200).json(ToolsData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-  });
 
+  router.get('/tools', async (req, res) => {
+    try {
+      // Get all tools and JOIN with user data
+      const toolsData = await Tool.findAll({
+        include: [
+          {
+            model: User,
+            exclude: ['password'],
+          },
+          {
+            model: ToolType
+          },
+          {
+            model: ToolMake
+          },
+          {
+            model: ToolCategories
+          }
+        ],
+      });
   
+      // Serialize data so the template can read it
+      const tools = toolsData.map((tool) => tool.get({ plain: true }));
+      // 
+      console.log(tools);
+      // 
+      // Pass serialized data and session flag into template
+      res.render('tools', { 
+        tools, 
+        logged_in: req.session.logged_in,
+        user_id: req.session.user_id
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
   
 

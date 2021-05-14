@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
       userData.password
     );
     // if they do not match, return error message
-    if (req.body.password != userData.password) {
+    if (!validPassword) {
       res.status(400).json({ message: 'Login failed. Please try again!' });
       return;
     }
@@ -56,14 +56,16 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create a new user
-router.post('/', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
-    const newUser = req.body;
-    // hash the password from 'req.body' and save to newUser
-    newUser.password = await bcrypt.hash(req.body.password, 10);
-    // create the newUser with the hashed password and save to DB
-    const userData = await User.create(newUser);
-    res.status(200).json(userData);
+    const userData = await User.create(req.body);
+
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.status(200).json(userData);
+    });
   } catch (err) {
     res.status(400).json(err);
   }
