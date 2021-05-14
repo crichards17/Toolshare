@@ -5,15 +5,15 @@ const {User} = require ('../../models')
 
 // Added comments describing the functionality of this `login` route
 router.post('/login', async (req, res) => {
-  // console.log(req.body.email)
+ 
   try {
     // we search the DB for a user with the provided email
     
-    console.log('TESTINGLOGIN')
+  
     const userData = await User.findOne({ where: 
       {email: req.body.email} });
     
-   
+      console.log('test')
     if (!userData) {
       // the error message shouldn't specify if the login failed because of wrong email or password
       res.status(404).json({ message: 'Login failed. Please try again!' });
@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
       return;
     }
     // if they do match, return success message
-    console.log('TESTINGLOGIN2')
+   
     req.session.save(()=>{
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -88,6 +88,17 @@ router.put('/:id', async (req, res) => {
     res.status(200).json(userData);
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.post('/logout', (req, res) => {
+  console.log('logout')
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
   }
 });
 
