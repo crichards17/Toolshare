@@ -27,7 +27,7 @@ server.listen(3000, () => {
 
 
 
- /* $(document).ready(function() {
+  $(document).ready(function() {
   
   $("#owl-demo").owlCarousel({
    
@@ -43,4 +43,4 @@ server.listen(3000, () => {
         // itemsTablet: false,
         // itemsMobile : false
    
-    })});  */
+    })});  
