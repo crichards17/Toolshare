@@ -1,25 +1,10 @@
 const router = require('express').Router();
-const { Tool, User } = require('../models');
+const { Tool, User, ToolType, ToolMake, ToolCategories } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all Tools and JOIN with user data
-    const ToolData = await Tool.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['user_name'],
-        },
-      ],
-    });
-
-    // Serialize data so the template can read it
-    const Tools = ToolData.map((Tool) => Tool.get({ plain: true }));
-
-    // Pass serialized data and session flag into template
     res.render('homepage', { 
-      Tools, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -48,18 +33,94 @@ router.get('/Tool/:id', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  // Find the logged in user based on the session ID
-  router.get('/profile', withAuth, async (req, res) => {
+
+  router.get('/tools', async (req, res) => {
     try {
-      const userData = await User.findByPk(req.session.user_id, {
-        attributes: { exclude: ['password'] },
-        include: [{ model: Tool }],
+      // Get all tools and JOIN with user data
+      const toolsData = await Tool.findAll({
+        include: [
+          {
+            model: User,
+            attributes: {
+              exclude: ['password'],
+            }
+          },
+          {
+            model: ToolType
+          },
+          {
+            model: ToolMake
+          },
+          {
+            model: ToolCategories
+          }
+        ],
       });
   
-      const user = userData.get({ plain: true });
+      // Serialize data so the template can read it
+      const tools = toolsData.map((tool) => tool.get({ plain: true }));
+      // // 
+      // console.log(tools);
+      // // 
+      // Pass serialized data and session flag into template
+      res.render('tools', { 
+        tools, 
+        logged_in: req.session.logged_in,
+        user_id: req.session.user_id
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  router.get('/profile', withAuth, async (req, res) => {
+    // 
+    console.log(`user ID: ${req.session.user_id}`);
+    // 
+    try {
+      // Find the logged-in user's tools based on the session ID
+      const toolsData = await Tool.findAll({
+        include: [
+          {
+            model: User,
+            where: {
+              id: req.session.user_id
+            },
+            attributes: {
+              exclude: ['password'],
+            }
+          },
+          {
+            model: ToolType
+          },
+          {
+            model: ToolMake
+          },
+          {
+            model: ToolCategories
+          }
+        ],
+      });
+      // Serialize data so the template can read it
+      const myTools = toolsData.map((tool) => tool.get({ plain: true }));
   
+      // Get all categories for categories dropdown
+      const categoriesData = await ToolCategories.findAll();
+      const categories = categoriesData.map((categorie) => categorie.get({ plain: true }));
+
+      // Get all makes for makes dropdown
+      const makesData = await ToolMake.findAll();
+      const makes = makesData.map((make) => make.get({ plain: true }));
+
+      // Get all ToolTypes for categories dropdown
+      const typeData = await ToolType.findAll();
+      const types = typeData.map((type) => type.get({ plain: true }));
+
       res.render('profile', {
-        ...user,
+        myTools,
+        categories,
+        makes,
+        types,
         logged_in: true
       });
     } catch (err) {
@@ -67,20 +128,45 @@ router.get('/Tool/:id', async (req, res) => {
     }
   });
   
-  router.get('/Tools', async (req, res) => {
-    // find all Tools
-  //NOTE: This try catch block was used just to test the relationships. This statement gives the user tool data in JSON format. If it needs to be deleted, feel free.
+  router.get('/login', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    if (req.session.logged_in) {
+      res.redirect('/profile');
+      return;
+    }
+  
+    res.render('login');
+  });
+
+  router.get('/create', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    if (req.session.logged_in) {
+      res.redirect('/profile');
+      return;
+    }
+  
+    res.render('create');
+  });
+  // get one Tool
+// find a single Tool by its `id`
+router.get('/Tool/:id', async(req, res) => {
   try {
-    const ToolsData = await Tool.findAll({
+    const toolData = await Tool.findOne({
+      where:{
+        id: req.params.id,
+      },
       include:[ToolCategories, ToolType, ToolMake]
     })
-    res.status(200).json(ToolsData);
+    if (!toolData) {
+      res.status(404).json({ message: 'No Tool found with this id!' });
+      return;
+    }
+
+    res.status(200).json(toolData);
   } catch (err) {
     res.status(500).json(err);
   }
-  });
-
-  
+});
 
   
 
