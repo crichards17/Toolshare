@@ -4,14 +4,24 @@
     </div>
     <select class='form-select p-1 m-2 rounded' placeholder='Distance' id='distance'>
                 <option value='default_label' selected>Distance To You</option>
-                {{!-- {{#each makes as |make|}}
-                <option value='{{make.id}}'>{{make.make_name}}</option>
-                {{/each}} --}}
                 <option value="10">10 miles</option>
                 <option value="25">25 miles</option>
                 <option value="50">50 miles</option>
                 <option value="100">100 miles</option>
                 <option value="150">150 miles</option>
+              </select>
+               <select class='form-select p-1 m-2 rounded' placeholder='Type' id='new_type'>
+                <option value='default_label' selected>Select Type</option>
+                {{#each types as |type|}}
+                <option value='{{type.id}}'>{{type.tool_types_name}}</option>
+                {{/each}}
+              </select>
+             <select class='form-select p-1 m-2 rounded' placeholder='Category' id='new_category'>
+                <option value='default_label' selected>Select Category</option>
+                {{#each categories as |category|}}
+                <option value='{{category.id}}'>{{category.categories_name}}</option>
+                {{/each}}
+              </select>
               </select>
               
               
