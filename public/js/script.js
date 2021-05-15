@@ -42,4 +42,15 @@ $(document).ready(function() {
    
     });
    
+    const checkSess=async()=>{
+      const sessDetails= await fetch('//api/UsersLogin/sessData')
+      if(sessDetails===true){
+        console.log("Yea")
+      }
+      if (sessDetails===false){
+        console.log('no')
+      }
+    }
+  checkSess()
   }); 
+
