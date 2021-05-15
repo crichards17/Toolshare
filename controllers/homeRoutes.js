@@ -59,9 +59,7 @@ router.get('/Tool/:id', async (req, res) => {
   
       // Serialize data so the template can read it
       const tools = toolsData.map((tool) => tool.get({ plain: true }));
-      // // 
-      // console.log(tools);
-      // // 
+      
       // Pass serialized data and session flag into template
       res.render('tools', { 
         tools, 
@@ -74,9 +72,7 @@ router.get('/Tool/:id', async (req, res) => {
   });
 
   router.get('/profile', withAuth, async (req, res) => {
-    // 
-    console.log(`user ID: ${req.session.user_id}`);
-    // 
+    
     try {
       // Find the logged-in user's tools based on the session ID
       const toolsData = await Tool.findAll({
