@@ -6,27 +6,30 @@ const { Server } = require("socket.io");
 const { getHeapSpaceStatistics } = require('v8');
 const io = new Server(server);
 
+
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/test.html');
 });
 
 io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-      io.emit('chat message', msg);
-    });
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
   });
-  
-  io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
-  
-  server.listen(3000, () => {
-    console.log('listening on *:3000');
-  });
-  
+});
+
+io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
+
+server.listen(3000, () => {
+  console.log('listening on *:3000');
+});
 
 
-$(document).ready(function() {
- 
-    $("#owl-demo").owlCarousel({
+
+
+ /* $(document).ready(function() {
+  
+  $("#owl-demo").owlCarousel({
    
         navigation : true, // Show next and prev buttons
         slideSpeed : 300,
@@ -40,17 +43,5 @@ $(document).ready(function() {
         // itemsTablet: false,
         // itemsMobile : false
    
-    });
-   
-    const checkSess=async()=>{
-      const sessDetails= await fetch('//api/UsersLogin/sessData')
-      if(sessDetails===true){
-        console.log("Yea")
-      }
-      if (sessDetails===false){
-        console.log('no')
-      }
-    }
-  checkSess()
-  }); 
+    })});  */
 

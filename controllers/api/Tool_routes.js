@@ -27,26 +27,6 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
-// get one Tool
-// find a single Tool by its `id`
-router.get('/:id', async(req, res) => {
-  try {
-    const toolData = await Tool.findOne({
-      where:{
-        id: req.params.id,
-      },
-      include:[ToolCategories, ToolType, ToolMake]
-    })
-    if (!toolData) {
-      res.status(404).json({ message: 'No Tool found with this id!' });
-      return;
-    }
-
-    res.status(200).json(toolData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 // create new Tool
 router.post('/', async(req, res) => {
