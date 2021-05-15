@@ -9,7 +9,7 @@ const io = new Server(server);
 
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/test.html');
 });
 
 io.on('connection', (socket) => {
@@ -27,7 +27,7 @@ server.listen(3000, () => {
 
 
 
-$(document).ready(function() {
+ /* $(document).ready(function() {
   
   $("#owl-demo").owlCarousel({
    
@@ -43,6 +43,4 @@ $(document).ready(function() {
         // itemsTablet: false,
         // itemsMobile : false
    
-    });
-   
-
+    })});  */
