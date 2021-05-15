@@ -9,7 +9,7 @@ const filters=async(event)=>{
         headers: { 'Content-Type': 'application/json' },
     })
 
-    if (sendDate.ok){
+    if (sendDistance.ok){
         console.log('pass')
     }
 }
