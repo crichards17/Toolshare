@@ -2,6 +2,18 @@
     <div class='text-3xl text-gray-200'>
         <h1 class='text-3xl m-4 p-2 text-gray-200 rounded-full'>Tools Near you</h1>
     </div>
+    <select class='form-select p-1 m-2 rounded' placeholder='Distance' id='distance'>
+                <option value='default_label' selected>Distance To You</option>
+                {{!-- {{#each makes as |make|}}
+                <option value='{{make.id}}'>{{make.make_name}}</option>
+                {{/each}} --}}
+                <option value="10">10 miles</option>
+                <option value="25">25 miles</option>
+                <option value="50">50 miles</option>
+                <option value="100">100 miles</option>
+                <option value="150">150 miles</option>
+              </select>
+              
     <ul class='tool-list-container mt-5 flex flex-row'>
     {{#each tools as |tool| }}
         <li>
