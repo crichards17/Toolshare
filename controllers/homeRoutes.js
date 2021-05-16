@@ -66,13 +66,14 @@ router.get('/Tool/:id', async (req, res) => {
       // console.log(tools);
       // // 
       // Pass serialized data and session flag into template
-      res.render('tools', { 
+      res.render( 'tools', { 
         tools,
         types,
         categories,
         logged_in: req.session.logged_in,
         user_id: req.session.user_id
       });
+   
     } catch (err) {
       res.status(500).json(err);
     }
