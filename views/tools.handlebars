@@ -4,14 +4,24 @@
     </div>
     <select class='form-select p-1 m-2 rounded' placeholder='Distance' id='distance'>
                 <option value='default_label' selected>Distance To You</option>
-                {{!-- {{#each makes as |make|}}
-                <option value='{{make.id}}'>{{make.make_name}}</option>
-                {{/each}} --}}
                 <option value="10">10 miles</option>
                 <option value="25">25 miles</option>
                 <option value="50">50 miles</option>
                 <option value="100">100 miles</option>
                 <option value="150">150 miles</option>
+              </select>
+               <select class='form-select p-1 m-2 rounded' placeholder='Type' id='typeFilter'>
+                <option value='default_label' selected>Select Type</option>
+                {{#each types as |type|}}
+                <option value='{{type.id}}'>{{type.tool_types_name}}</option>
+                {{/each}}
+              </select>
+             <select class='form-select p-1 m-2 rounded' placeholder='Category' id='categoryFilter'>
+                <option value='default_label' selected>Select Category</option>
+                {{#each categories as |category|}}
+                <option value='{{category.id}}'>{{category.categories_name}}</option>
+                {{/each}}
+              </select>
               </select>
               
               
@@ -27,8 +37,8 @@
                     <dd class="text-gray-600 text-sm m-2" id="">Name: {{tool.tool_name}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Description: {{tool.tool_description}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Make: {{tool.toolMake.make_name}}</dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Type: {{tool.toolType.tool_types_name}}</dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Category: {{tool.toolCategory.categories_name}}</dd>
+                    <dd class="text-gray-600 text-sm m-2 toolType" id="toolType">Type: {{tool.toolType.tool_types_name}}</dd>
+                    <dd class="text-gray-600 text-sm m-2 toolCat" id="">Category: {{tool.toolCategory.categories_name}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="user">User: {{tool.user.user_name}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Asking: </dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Distance: </dd>

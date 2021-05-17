@@ -56,18 +56,24 @@ router.get('/Tool/:id', async (req, res) => {
           }
         ],
       });
-  
+      const type= await ToolType.findAll()
+      const types= type.map((type)=>type.get({plain: true}))
+      const categorie= await ToolCategories.findAll()
+      const categories= categorie.map((cat)=>cat.get({plain: true}))
       // Serialize data so the template can read it
       const tools = toolsData.map((tool) => tool.get({ plain: true }));
       // // 
       // console.log(tools);
       // // 
       // Pass serialized data and session flag into template
-      res.render('tools', { 
-        tools, 
+      res.render( 'tools', { 
+        tools,
+        types,
+        categories,
         logged_in: req.session.logged_in,
         user_id: req.session.user_id
       });
+   
     } catch (err) {
       res.status(500).json(err);
     }
