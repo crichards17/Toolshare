@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
 
 io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
 
-server.listen(3001, () => {
+sequelize.sync({ force: false }).then(() => {
+  server.listen(3001, () => {
   console.log('listening on *:3000');
-});
+})});
