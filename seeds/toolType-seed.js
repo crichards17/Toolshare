@@ -16,7 +16,19 @@ const toolTypeData= [
     },
     {
         tool_types_name: "Plasma Cutter"
-    }
+    },
+    {
+        tool_types_name: "Paint Sprayer"
+    },
+    {
+        tool_types_name: "Ladders"
+    },
+    {
+        tool_types_name: "Shovels"
+    },
+    {
+        tool_types_name: "Pickaxe"
+    },
 ]
 
 const seedToolType=()=>ToolType.bulkCreate(toolTypeData);

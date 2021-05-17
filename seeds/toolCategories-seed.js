@@ -16,7 +16,13 @@ const toolCategoriesData= [
     },
     {
         categories_name:"Welding"
-    }
+    },
+    {
+        categories_name:"Painting"
+    },
+    {
+        categories_name:"Ladders"
+    },
 ]
 
 const seedToolModel=()=>ToolCategories.bulkCreate(toolCategoriesData);
