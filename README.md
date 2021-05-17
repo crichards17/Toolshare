@@ -1,42 +1,37 @@
 # Toolshare
+A site for sharing, trading, and borrowing tools: a community tradition, brought to the web.
 
-Toolshare site  where people can trade there tools with no hassle. 
 ## Table of Contents.
-- [Installation](#installation)
-- [Abstract](#abstract)
+- [How-to](#How-to)
+- [User Story](#User-Story)
 - [Credits](#credits)
-- [WebsiteDemo](#websiteDemo)
-- [Review](#review)
+- [Technologies](#Technologies)
+- [Feedback](#Feedback)
 
-## Installation
-The following dependencies were installed to run the application: bcrypt, connect-session-sequelize, dotenv, express, express-handlebars, express-session,  mysql2, sequelize,
-## Abstract
-
-```md
-WHEN I visit the site for the first time
-THEN I am presented with the homepage, and the option to log in or create an Account
-WHEN I click on the Tool option
-THEN I am taken to the Toolpage, where i can see tool which are ready to trade
-WHEN I click on the Profile option 
-THEN I am taken to Profilepage, where i can post new tool and also post message 
+## How-to
+<ol>
+    <li>Visit the site on <a href="https://pacific-tor-20392.herokuapp.com/">Heroku</a></li>
+    <li>Click the Login link in the Nav bar, and either log in with an existing account or select "Create Account" to create a new user account</li>
+    <li>The Profile page will show your currently-listed tools, and will allow you to post new tools</li>
+    <li>The Tools page will show all currently-listed tools</li>
+    <li>On the Tools page you can also filter the tools listings by type, category, and distance from you</li>
+    <li>Selecting an individual tool will bring you to the page for that listing, where you can also leave a message for the tool's owner</li>
+</ol>
 
 ## Credits
-List your contributors 
 Contributers: Aron Bailey , Cameron Richards, Nathan Nosar, Raginee Upadhyaya
 
+## Technologies
+Integrates the following elements:
+<ul>
+    <li>Server: <a href="https://expressjs.com/">Express</a></li>
+    <li>Database: <a href="https://www.mysql.com/">MySQL</a> via <a href="https://sequelize.org/master/">Sequelize</a></li>
+    <li>Hosted database: <a href="https://devcenter.heroku.com/articles/jawsdb">JAWSdb</a></li>
+    <li>CSS: <a href="https://tailwindcss.com/">Tailwind</a></li>
+    <li>Location matrix: <a href="https://github.com/googlemaps/google-maps-services-js">Google Maps node module</a></li>    
+</ul>
 
+## Feedback
 
-## Website Demo
+Feel free to submit an Issue to the <a href="https://github.com/crichards17/Toolshare">Github repository</a>
 
-![HTML webpage titled “Toolshare” features key info.]
-
-
-
-
-
-
-
-## Review
-
-The URL of the GitHub repository
-https://github.com/crichards17
