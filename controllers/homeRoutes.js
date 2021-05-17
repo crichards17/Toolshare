@@ -38,9 +38,6 @@ router.get('/tool/:id', async (req, res) => {
     });
 
     let toolResult = ToolData.get({ plain: true });
-    // 
-    console.log(toolResult);
-    // 
 
     if (req.session.logged_in) {
       const userData = await User.findByPk(req.session.user_id);
@@ -60,9 +57,6 @@ router.get('/tool/:id', async (req, res) => {
       toolResult.distance = parseFloat(results[0].distance.value * .00061).toFixed(2);
     }
 
-    // Test--------------
-    console.log(toolResult);
-    //
 
     res.render('tool', {
       ...toolResult,
@@ -243,7 +237,7 @@ router.get('/search/type/:type/category/:category/distance/:distance', async(req
     const searchType = req.params.type;
     console.log(`category: ${searchCat}, type: ${searchType}`)
     let toolsData = {};
-    if (searchCat === "all" && searchType === "all") {
+    if (searchCat === "*" && searchType === "*") {
       toolsData = await Tool.findAll({
         include: [
           {
