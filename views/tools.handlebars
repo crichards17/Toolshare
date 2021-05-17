@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div class='text-3xl text-gray-200'>
           <h1 class='text-3xl m-4 p-2 text-gray-200 rounded-full'>Tools Near you</h1>
 
@@ -6,41 +7,57 @@
 
       <ul class='mt-5 flex flex-wrap flex-row'>
 =======
+=======
+>>>>>>> main
 <body class='bg-gray-600'></body>
     <div class='text-3xl text-gray-200'>
         <h1 class='text-3xl m-4 p-2 text-gray-200 rounded-full'>Tools Near you</h1>
     </div>
     <select class='form-select p-1 m-2 rounded' placeholder='Distance' id='distance'>
                 <option value='default_label' selected>Distance To You</option>
-                {{!-- {{#each makes as |make|}}
-                <option value='{{make.id}}'>{{make.make_name}}</option>
-                {{/each}} --}}
                 <option value="10">10 miles</option>
                 <option value="25">25 miles</option>
                 <option value="50">50 miles</option>
                 <option value="100">100 miles</option>
                 <option value="150">150 miles</option>
               </select>
+               <select class='form-select p-1 m-2 rounded' placeholder='Type' id='typeFilter'>
+                <option value='default_label' selected>Select Type</option>
+                {{#each types as |type|}}
+                <option value='{{type.id}}'>{{type.tool_types_name}}</option>
+                {{/each}}
+              </select>
+             <select class='form-select p-1 m-2 rounded' placeholder='Category' id='categoryFilter'>
+                <option value='default_label' selected>Select Category</option>
+                {{#each categories as |category|}}
+                <option value='{{category.id}}'>{{category.categories_name}}</option>
+                {{/each}}
+              </select>
+              </select>
               
               
               <button type="button" id="apply_filters" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-600 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       Apply Filters
                     </button>
-    <ul class='tool-list-container mt-5 flex flex-row'>
+    <ul class='tool-list-container mt-5 flex flex-row flex-wrap'>
     {{#each tools as |tool| }}
+<<<<<<< HEAD
 >>>>>>> main
         <li id='card'>
+=======
+        <li>
+>>>>>>> main
             <div class="max-w-xs bg-gray-200 m-4 rounded-lg shadow-lg">
                 <img class="object-cover  w-60" src="/images/logo-gray.png" alt="tool trader logo"/>
                 <div class="flex-1 flex flex-col p-2 mx-auto">
                     <dd class="text-gray-600 text-sm m-2" id="">Name: {{tool.tool_name}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Description: {{tool.tool_description}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="">Make: {{tool.toolMake.make_name}}</dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Type: {{tool.toolType.tool_types_name}}</dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Category: {{tool.toolCategory.categories_name}}</dd>
+                    <dd class="text-gray-600 text-sm m-2 toolType" id="toolType">Type: {{tool.toolType.tool_types_name}}</dd>
+                    <dd class="text-gray-600 text-sm m-2 toolCat" id="">Category: {{tool.toolCategory.categories_name}}</dd>
                     <dd class="text-gray-600 text-sm m-2" id="user">User: {{tool.user.user_name}}</dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Asking: </dd>
-                    <dd class="text-gray-600 text-sm m-2" id="">Distance: </dd>
+                    <dd class="text-gray-600 text-sm m-2" id="">Asking: {{tool.asking}}</dd>
+                    <dd class="text-gray-600 text-sm m-2" id="">Distance: {{tool.distance}} miles</dd>
                     <dd class="text-gray-600 text-sm m-2" id="user">Contact email: {{tool.user.email}}</dd>
                 </div>
                 <div class="-mt-px flex divide-x border-t divide-gray-200">
@@ -56,7 +73,11 @@
         </li>
     {{/each}}
     </ul>
+<<<<<<< HEAD
     <script src="/js/ToolScript.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
       <script src='/js/animations.js'></script>
+=======
+    <script src="/js/search.js"></script>
+>>>>>>> main
 </body>

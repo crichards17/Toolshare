@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/crichards17/Toolshare#readme",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.16",
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.1",
     "dotenv": "^9.0.0",
