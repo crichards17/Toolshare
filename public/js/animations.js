@@ -19,3 +19,9 @@ gsap.timeline()
     .from('#owl', {opacity:0, scale:0, ease:'back'})
     .from('#owl img', {y:160, stagger:0.2, duration:0.8, ease:'back'})
     .from('#nav', {xPercent:100, duration:0.2 })
+
+gsap.from('#left', {duration:1, y:'100%', ease:'bounce'});
+
+gsap.from('#right', {duration:1, y:'-110%', ease:'bounce', delay:1, stagger:0.5});
+
+gsap.from('#card', {duration:1.5, opacity:0.2, ease:'back', xPercent:100})
