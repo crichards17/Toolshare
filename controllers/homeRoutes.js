@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const { Tool, User, ToolType, ToolMake, ToolCategories } = require('../models');
 const withAuth = require('../utils/auth');
+// -------------------------
+const {Client} = require("@googlemaps/google-maps-services-js");
+// ---------------------------
 
 router.get('/', async (req, res) => {
   try {
@@ -56,10 +59,39 @@ router.get('/Tool/:id', async (req, res) => {
           }
         ],
       });
-  
+
       // Serialize data so the template can read it
       const tools = toolsData.map((tool) => tool.get({ plain: true }));
-      
+
+      // If signed in, gather Distance data
+      if (req.session.logged_in) {
+        const userData = await User.findByPk(req.session.user_id);
+        
+        const client = new Client({});
+
+        let destinations = [];
+        for (let i = 0; i < tools.length; i++) {
+          destinations.push(tools[i].user.user_address);
+        }
+        const r = await client.distancematrix({
+          params: {
+            origins: [userData.user_address],
+            destinations: destinations,
+            key: "AIzaSyBBTVJl80HHBH6qEf-E22Pze_2V7yzLJFc",
+            units: "imperial"
+          },
+          timeout: 2000, // milliseconds
+        });
+        const results = r.data.rows[0].elements;
+        for (let i = 0; i < results.length; i++) {
+          tools[i].distance = parseFloat(results[i].distance.value * .00061).toFixed(2);
+        }
+      }
+
+      // Test-------------
+      console.log(tools);
+      // ----------------
+  
       // Pass serialized data and session flag into template
       res.render('tools', { 
         tools, 

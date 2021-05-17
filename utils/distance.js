@@ -2,50 +2,45 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 
 const client = new Client({});
 
-const returnDistance = (origin, tools) => {
+const returnDistance = async (origin, tools) => {
 
-  // Extract address for each tool to a separate array
   let destinations = [];
   for (let i = 0; i < tools.length; i++) {
-    destinations[i] = tools[i].user.user_address;
+    destinations.push(tools[i].user.user_address);
   }
-  // Test ---------------------------
-  console.log(`Destinations:\n${destinations}`);
-  // --------------------------
-
-  client
-  .distancematrix({
-    params: {
-      origins: [origin],
-      destinations: destinations,
-      key: "AIzaSyBBTVJl80HHBH6qEf-E22Pze_2V7yzLJFc",
-      units: "imperial"
-    },
-    timeout: 2000, // milliseconds
-  })
-  .then((r) => {
-    // Test ------------------------------------
-    console.log(r.data.rows[0].elements);
-    console.log(`Distance in miles: ${r.data.rows[0].elements[0].distance.value * 0.000621371}`);
-    // -----------------------------------
-
-    const results = r.data.rows[0].elements;
-    
-    // Store resulting distance values in their respective Tool
-    for (let i = 0; i < results.length; i++) {
-      tools[i].distance = results.distance.value * 0.00062;
-    }
-    console.log(distPairs);
-  })
-  .catch((e) => {
-    console.log(e.response.data.error_message);
-  });
-
-  return tools;
+    const r = await client.distancematrix({
+      params: {
+        origins: [origin],
+        destinations: destinations,
+        key: "AIzaSyBBTVJl80HHBH6qEf-E22Pze_2V7yzLJFc",
+        units: "imperial"
+      },
+      timeout: 2000, // milliseconds
+    });
+      const results = r.data.rows[0].elements;
+      for (let i = 0; i < results.length; i++) {
+        tools[i].distance = results[i].distance.value;
+      }
+      return tools;
 }
 
 module.exports = returnDistance;
 
-// Test ----------------------
-returnDistance('Issaquah WA', ['Seattle WA', 'Bellevue WA']);
-// ---------------------------
+// // Test
+// const sampleTools = [
+//   {
+//     user_name: 'test1',
+//     user_address: 'Seattle WA'
+//   },
+//   {
+//     user_name: 'test2',
+//     user_address: 'Bellevue WA'
+//   }
+// ]
+
+// async function printTest(sampleTools) {
+//   const result = await returnDistance('Issaquah WA', sampleTools);
+//   console.log(result);
+// }
+
+// printTest(sampleTools);
