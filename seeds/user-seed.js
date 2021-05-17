@@ -30,6 +30,12 @@ const userData=[
         password:"password",
         user_address:'69010 Bellevue Way NE, Bellevue, WA 98004'
     },
+    {
+        user_name: "Robin",
+        email:"Robin@gmail.com",
+        password:"password",
+        user_address:'69010 Bellevue Way NE, Bellevue, WA 98004'
+    },
 ]
 
 const seedUserData= () => User.bulkCreate(userData, { individualHooks: true });
