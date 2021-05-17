@@ -43,9 +43,4 @@ server.listen(3000, () => {
         // itemsTablet: false,
         // itemsMobile : false
    
-<<<<<<< HEAD
     })});  
-=======
-    })});  */
-
->>>>>>> main
