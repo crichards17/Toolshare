@@ -15,27 +15,63 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/Tool/:id', async (req, res) => {
-    try {
-      const ToolData = await Tool.findByPk(req.params.id, {
-        include: [
-          {
-            model: User,
-            attributes: ['user_name'],
-          },
-        ],
+router.get('/tool/:id', async (req, res) => {
+  try {
+    const ToolData = await Tool.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: {
+            exclude: ['password']
+          }
+        },
+        {
+          model: ToolType
+        },
+        {
+          model: ToolMake
+        },
+        {
+          model: ToolCategories
+        }
+      ]
+    });
+
+    let toolResult = ToolData.get({ plain: true });
+    // 
+    console.log(toolResult);
+    // 
+
+    if (req.session.logged_in) {
+      const userData = await User.findByPk(req.session.user_id);
+      
+      const client = new Client({});
+
+      const r = await client.distancematrix({
+        params: {
+          origins: [userData.user_address],
+          destinations: [toolResult.user.user_address],
+          key: process.env.MAPS_API_KEY,
+          units: "imperial"
+        },
+        timeout: 2000, // milliseconds
       });
-  
-      const Tool = ToolData.get({ plain: true });
-  
-      res.render('Tool', {
-        ...Tool,
-        logged_in: req.session.logged_in
-      });
-    } catch (err) {
-      res.status(500).json(err);
+      const results = r.data.rows[0].elements;
+      toolResult.distance = parseFloat(results[0].distance.value * .00061).toFixed(2);
     }
-  });
+
+    // Test--------------
+    console.log(toolResult);
+    //
+
+    res.render('tool', {
+      ...toolResult,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
   router.get('/tools', async (req, res) => {
     try {
