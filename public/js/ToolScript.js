@@ -51,11 +51,7 @@ const filters=async(event)=>{
     }
     setFilters()
 
-
-
 }
-
-
 
 document
     .querySelector('#apply_filters')
