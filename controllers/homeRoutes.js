@@ -81,7 +81,7 @@ router.get('/Tool/:id', async (req, res) => {
           params: {
             origins: [userData.user_address],
             destinations: destinations,
-            key: "AIzaSyBBTVJl80HHBH6qEf-E22Pze_2V7yzLJFc",
+            key: process.env.MAPS_API_KEY,
             units: "imperial"
           },
           timeout: 2000, // milliseconds
@@ -316,7 +316,7 @@ router.get('/search/type/:type/category/:category/distance/:distance', async(req
         params: {
           origins: [userData.user_address],
           destinations: destinations,
-          key: "AIzaSyBBTVJl80HHBH6qEf-E22Pze_2V7yzLJFc",
+          key: process.env.MAPS_API_KEY,
           units: "imperial"
         },
         timeout: 2000, // milliseconds
