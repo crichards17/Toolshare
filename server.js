@@ -36,6 +36,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
+/* sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
+}); */
+
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const { getHeapSpaceStatistics } = require('v8');
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
 });
+
+io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' });
+
+sequelize.sync({ force: false }).then(() => {
+  server.listen(3001, () => {
+  console.log('listening on *:3000');
+})});
